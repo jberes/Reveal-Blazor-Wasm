@@ -1,0 +1,91 @@
+@page "/reports"
+@inject NavigationManager NavigationManager
+@inject RevealDashboardsList.IRevealDashboardsListService revealDashboardsListService
+
+<div class="row-layout reports-container">
+    <IgbTabs class="tabs" reports-scope>
+        <IgbTab Selected="true">
+            <span class="material-icons">insert_chart</span>
+            Dashboards
+        </IgbTab>
+        <IgbTabPanel class="row-layout tab-item-content" reports-scope>
+            <IgbCard @onclick="@(e => Navigate("new-dashoard"))" class="card" reports-scope>
+                <div>
+                    <div class="row-layout">
+                        <IgbCardHeader>
+                            <h3 slot="title">
+                                Add New Dashboard
+                            </h3>
+                            <h5 slot="subtitle">
+                            </h5>
+                            <IgbCardMedia class="media-content" reports-scope>
+                                <img src="assets/d5a08efd8c53a41ea36c62dcf99c283415349198.png" />
+                            </IgbCardMedia>
+                        </IgbCardHeader>
+                    </div>
+                </div>
+                <span class="divider">Divider not yet available in Blazor</span>
+            </IgbCard>
+            @foreach (var item in revealDashboardsListDashboards)
+            {
+                <IgbCard Outlined="true" @onclick="@(e => Navigate("dashboard-viewer"))" class="card" reports-scope>
+                    <div>
+                        <div class="row-layout">
+                            <IgbCardHeader>
+                                <h3 slot="title">
+                                    @item.Title
+                                </h3>
+                                <h5 slot="subtitle">
+                                    @item.DateChanged
+                                </h5>
+                                <IgbCardMedia class="media-content" reports-scope>
+                                    <img src="@item.ThumbnailURL" />
+                                </IgbCardMedia>
+                            </IgbCardHeader>
+                        </div>
+                        <IgbCardContent class="body-content" reports-scope></IgbCardContent>
+                    </div>
+                    <span class="divider">Divider not yet available in Blazor</span>
+                    <IgbCardActions class="actions-content" reports-scope>
+                        <IgbIconButton Variant="IconButtonVariant.Flat">
+                            <span class="material-icons">
+                                favorite
+                            </span>
+                            <IgbRipple></IgbRipple>
+                        </IgbIconButton>
+                        <IgbIconButton Variant="IconButtonVariant.Flat">
+                            <span class="material-icons">
+                                bookmark
+                            </span>
+                            <IgbRipple></IgbRipple>
+                        </IgbIconButton>
+                        <IgbIconButton Variant="IconButtonVariant.Flat">
+                            <span class="material-icons">
+                                share
+                            </span>
+                            <IgbRipple></IgbRipple>
+                        </IgbIconButton>
+                    </IgbCardActions>
+                </IgbCard>
+            }
+        </IgbTabPanel>
+        <IgbTab>
+            <span class="material-icons">table_chart</span>
+            Reports
+        </IgbTab>
+        <IgbTabPanel class="row-layout tab-item-content_1" reports-scope></IgbTabPanel>
+    </IgbTabs>
+</div>
+
+@code {
+    private List<RevealDashboardsList.DashboardsType> revealDashboardsListDashboards = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        revealDashboardsListDashboards = await this.revealDashboardsListService.GetDashboards() ?? revealDashboardsListDashboards;
+    }
+    private void Navigate(string path)
+    {
+        NavigationManager.NavigateTo(path);
+    }
+}

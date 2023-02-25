@@ -1,0 +1,39 @@
+@page "/new-dashoard"
+@inject NavigationManager NavigationManager
+
+<div class="row-layout new-dashoard-container">
+    <div class="column-layout group">
+        <div class="column-layout group_1">
+            <div class="row-layout header">
+                <div class="row-layout page-title">
+                    <div class="row-layout group_2">
+                        <img src="assets/theme-light.svg" class="image" />
+                    </div>
+                    <h6 class="h6">
+                        New Dashboard
+                    </h6>
+                </div>
+                <div class="row-layout buttons">
+                    <IgbButton Variant="ButtonVariant.Flat" @onclick="@(e => Navigate("reports"))" class="button" new-dashoard-scope>
+                        <span class="material-icons">
+                            arrow_back
+                        </span>
+                        <span>Go Back</span>
+                        <IgbRipple></IgbRipple>
+                    </IgbButton>
+                </div>
+            </div>
+        </div>
+        <IgbButton class="button_1" new-dashoard-scope>
+            REVEAL VIEW
+            <IgbRipple></IgbRipple>
+        </IgbButton>
+    </div>
+</div>
+
+@code {
+    private void Navigate(string path)
+    {
+        NavigationManager.NavigateTo(path);
+    }
+}

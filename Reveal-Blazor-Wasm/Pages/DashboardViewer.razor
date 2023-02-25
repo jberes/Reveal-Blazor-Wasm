@@ -1,0 +1,39 @@
+@page "/dashboard-viewer"
+@inject NavigationManager NavigationManager
+
+<div class="row-layout dashboard-viewer-container">
+    <div class="column-layout group">
+        <div class="column-layout group_1">
+            <div class="row-layout header">
+                <div class="row-layout page-title">
+                    <div class="row-layout group_2">
+                        <img src="assets/theme-light.svg" class="image" />
+                    </div>
+                    <h6 class="h6">
+                        Report Name
+                    </h6>
+                </div>
+                <div class="row-layout buttons">
+                    <IgbButton Variant="ButtonVariant.Flat" @onclick="@(e => Navigate("reports"))" class="button" dashboard-viewer-scope>
+                        <span class="material-icons">
+                            arrow_back
+                        </span>
+                        <span>Go Back</span>
+                        <IgbRipple></IgbRipple>
+                    </IgbButton>
+                </div>
+            </div>
+        </div>
+        <IgbButton class="button_1" dashboard-viewer-scope>
+            REVEAL VIEW
+            <IgbRipple></IgbRipple>
+        </IgbButton>
+    </div>
+</div>
+
+@code {
+    private void Navigate(string path)
+    {
+        NavigationManager.NavigateTo(path);
+    }
+}
